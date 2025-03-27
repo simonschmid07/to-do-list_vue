@@ -4,9 +4,11 @@ import { useTodoStore } from "./stores/todo";
 import BoardView from "./components/BoardView.vue";
 import CreateTaskModal from "./components/CreateTaskModal.vue";
 import SearchResults from "./components/SearchResults.vue";
+import CategoryModal from "./components/CategoryModal.vue";
 
 const store = useTodoStore();
 const showCreateModal = ref(false);
+const showCategoryModal = ref(false);
 </script>
 
 <template>
@@ -44,6 +46,10 @@ const showCreateModal = ref(false);
             <button @click="showCreateModal = true" class="btn btn-primary">
               Aufgabe erstellen
             </button>
+
+            <button @click="showCategoryModal = true" class="btn btn-secondary">
+              Kategorien verwalten
+            </button>
           </div>
         </div>
       </div>
@@ -59,6 +65,11 @@ const showCreateModal = ref(false);
       :show="showCreateModal"
       :categoryId="store.activeCategoryId"
       @close="showCreateModal = false"
+    />
+
+    <CategoryModal
+      :show="showCategoryModal"
+      @close="showCategoryModal = false"
     />
   </div>
 </template>

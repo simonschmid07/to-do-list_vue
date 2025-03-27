@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref, watch, computed } from "vue";
+import { ref, computed, watch } from "vue";
 
 export const useTodoStore = defineStore("todo", () => {
   const storedData = JSON.parse(localStorage.getItem("todoData"));
@@ -76,6 +76,27 @@ export const useTodoStore = defineStore("todo", () => {
     saveToLocalStorage();
   }
 
+  function addCategory(category) {
+    categories.value.push(category);
+    saveToLocalStorage();
+  }
+
+  function updateCategory(categoryId, newCategoryName) {
+    const category = categories.value.find((c) => c.id === categoryId);
+    if (category) {
+      category.name = newCategoryName;
+      saveToLocalStorage();
+    }
+  }
+
+  function deleteCategory(categoryId) {
+    const categoryIndex = categories.value.findIndex((c) => c.id === categoryId);
+    if (categoryIndex !== -1) {
+      categories.value.splice(categoryIndex, 1);
+      saveToLocalStorage();
+    }
+  }
+
   watch(categories, saveToLocalStorage, { deep: true });
   watch(activeCategoryId, saveToLocalStorage);
 
@@ -88,5 +109,8 @@ export const useTodoStore = defineStore("todo", () => {
     addTask,
     updateTask,
     deleteTask,
+    addCategory,
+    updateCategory,
+    deleteCategory,
   };
 });
