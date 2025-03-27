@@ -90,7 +90,9 @@ export const useTodoStore = defineStore("todo", () => {
   }
 
   function deleteCategory(categoryId) {
-    const categoryIndex = categories.value.findIndex((c) => c.id === categoryId);
+    const categoryIndex = categories.value.findIndex(
+      (c) => c.id === categoryId
+    );
     if (categoryIndex !== -1) {
       categories.value.splice(categoryIndex, 1);
       saveToLocalStorage();

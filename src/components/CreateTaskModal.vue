@@ -4,8 +4,8 @@ import { useTodoStore } from "../stores/todo";
 
 const props = defineProps({
   show: Boolean,
-  categoryId: String, // Default-Kategorie beim Erstellen
-  task: Object // Wenn vorhanden, bearbeiten wir eine bestehende Aufgabe
+  categoryId: String,
+  task: Object,
 });
 
 const emit = defineEmits(["close"]);
@@ -16,7 +16,6 @@ const title = ref("");
 const content = ref("");
 const priority = ref("medium");
 const status = ref("todo");
-// Wenn bereits eine Aufgabe existiert, verwenden wir deren Kategorie oder sonst den Default aus props
 const selectedCategoryId = ref(props.task?.categoryId || props.categoryId);
 
 watch(
@@ -47,23 +46,19 @@ function saveTask() {
     };
 
     if (props.task) {
-      // Aufgabe bearbeiten:
       if (props.task.categoryId === selectedCategoryId.value) {
-        // Kategorie bleibt gleich, Update in der aktuellen Kategorie:
         store.updateTask(props.task.id, updatedTask);
       } else {
-        // Kategorie hat sich geändert:
-        // Zuerst in allen Kategorien entfernen:
         store.deleteTask(props.task.id);
-        // Dann in der neuen Kategorie hinzufügen und dabei die gleiche ID verwenden:
         const newTask = { ...updatedTask, id: props.task.id };
-        const newCategory = store.categories.find(c => c.id === selectedCategoryId.value);
+        const newCategory = store.categories.find(
+          (c) => c.id === selectedCategoryId.value
+        );
         if (newCategory) {
           newCategory.tasks.push(newTask);
         }
       }
     } else {
-      // Neue Aufgabe erstellen:
       store.addTask(selectedCategoryId.value, updatedTask);
     }
     resetForm();
@@ -139,7 +134,6 @@ function resetForm() {
             </div>
           </div>
 
-          <!-- Neue Dropdown-Liste zur Auswahl der Kategorie -->
           <div class="mb-3">
             <label class="form-label">Kategorie</label>
             <select v-model="selectedCategoryId" class="form-select">
