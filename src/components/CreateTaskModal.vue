@@ -1,6 +1,6 @@
 <script setup>
-import { ref, watch } from 'vue';
-import { useTodoStore } from '../stores/todo';
+import { ref, watch } from "vue";
+import { useTodoStore } from "../stores/todo";
 
 const props = defineProps({
   show: Boolean,
@@ -8,14 +8,14 @@ const props = defineProps({
   task: Object,
 });
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(["close"]);
 
 const store = useTodoStore();
 
-const title = ref('');
-const content = ref('');
-const priority = ref('medium');
-const status = ref('todo');
+const title = ref("");
+const content = ref("");
+const priority = ref("medium");
+const status = ref("todo");
 
 watch(
   () => props.task,
@@ -50,35 +50,56 @@ function saveTask() {
       });
     }
     resetForm();
-    emit('close');
+    emit("close");
   }
 }
 
 function resetForm() {
-  title.value = '';
-  content.value = '';
-  priority.value = 'medium';
-  status.value = 'todo';
+  title.value = "";
+  content.value = "";
+  priority.value = "medium";
+  status.value = "todo";
 }
 </script>
 
 <template>
-  <div v-if="show" class="modal d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5);">
-    <div class="modal-dialog" style="z-index: 1050;">
+  <div
+    v-if="show"
+    class="modal d-block"
+    tabindex="-1"
+    style="background-color: rgba(0, 0, 0, 0.5)"
+  >
+    <div class="modal-dialog" style="z-index: 1050">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{ task ? 'Aufgabe bearbeiten' : 'Neue Aufgabe erstellen' }}</h5>
-          <button type="button" class="btn-close" @click="emit('close')"></button>
+          <h5 class="modal-title">
+            {{ task ? "Aufgabe bearbeiten" : "Neue Aufgabe erstellen" }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            @click="emit('close')"
+          ></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">Titel</label>
-            <input v-model="title" type="text" class="form-control" placeholder="Aufgaben Titel" />
+            <input
+              v-model="title"
+              type="text"
+              class="form-control"
+              placeholder="Aufgaben Titel"
+            />
           </div>
 
           <div class="mb-3">
             <label class="form-label">Beschreibung</label>
-            <textarea v-model="content" rows="3" class="form-control" placeholder="Aufgabe beschreiben"></textarea>
+            <textarea
+              v-model="content"
+              rows="3"
+              class="form-control"
+              placeholder="Aufgabe beschreiben"
+            ></textarea>
           </div>
 
           <div class="row mb-3">
@@ -102,9 +123,15 @@ function resetForm() {
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="emit('close')">Abbrechen</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="emit('close')"
+          >
+            Abbrechen
+          </button>
           <button type="button" class="btn btn-primary" @click="saveTask">
-            {{ task ? 'Speichern' : 'Aufgabe erstellen' }}
+            {{ task ? "Speichern" : "Aufgabe erstellen" }}
           </button>
         </div>
       </div>

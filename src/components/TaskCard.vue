@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import CreateTaskModal from "./CreateTaskModal.vue";
-import { useTodoStore } from '../stores/todo';
+import { useTodoStore } from "../stores/todo";
 
 const props = defineProps({
   task: Object,
@@ -21,10 +21,16 @@ const showModal = ref(false);
           :class="{
             'bg-danger': task.priority === 'high',
             'bg-warning': task.priority === 'medium',
-            'bg-success': task.priority === 'low'
+            'bg-success': task.priority === 'low',
           }"
         >
-          {{ task.priority === 'high' ? 'Hoch' : task.priority === 'low' ? 'Niedrig' : 'Medium' }}
+          {{
+            task.priority === "high"
+              ? "Hoch"
+              : task.priority === "low"
+              ? "Niedrig"
+              : "Medium"
+          }}
         </span>
       </div>
 
@@ -32,10 +38,10 @@ const showModal = ref(false);
         {{ task.content }}
       </div>
 
-      <div style="text-align: right;">
+      <div style="text-align: right">
         <i
           class="bi bi-pencil-square text-primary"
-          style="cursor: pointer; font-size: 1.2rem;"
+          style="cursor: pointer; font-size: 1.2rem"
           @click="showModal = true"
         ></i>
 

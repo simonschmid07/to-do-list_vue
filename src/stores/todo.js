@@ -11,7 +11,7 @@ export const useTodoStore = defineStore("todo", () => {
     ]
   );
   const activeCategoryId = ref(storedData?.activeCategoryId || "schule");
-  const searchQuery = ref('');
+  const searchQuery = ref("");
 
   const searchResults = computed(() => {
     if (!searchQuery.value.trim()) return [];
@@ -19,8 +19,8 @@ export const useTodoStore = defineStore("todo", () => {
     const query = searchQuery.value.toLowerCase();
     const results = [];
 
-    categories.value.forEach(category => {
-      category.tasks.forEach(task => {
+    categories.value.forEach((category) => {
+      category.tasks.forEach((task) => {
         if (
           task.title.toLowerCase().includes(query) ||
           task.content?.toLowerCase().includes(query)
@@ -36,7 +36,10 @@ export const useTodoStore = defineStore("todo", () => {
   function saveToLocalStorage() {
     localStorage.setItem(
       "todoData",
-      JSON.stringify({ categories: categories.value, activeCategoryId: activeCategoryId.value })
+      JSON.stringify({
+        categories: categories.value,
+        activeCategoryId: activeCategoryId.value,
+      })
     );
   }
 
@@ -57,7 +60,10 @@ export const useTodoStore = defineStore("todo", () => {
     categories.value.forEach((category) => {
       const taskIndex = category.tasks.findIndex((t) => t.id === taskId);
       if (taskIndex !== -1) {
-        category.tasks[taskIndex] = { ...category.tasks[taskIndex], ...updatedTask };
+        category.tasks[taskIndex] = {
+          ...category.tasks[taskIndex],
+          ...updatedTask,
+        };
         saveToLocalStorage();
       }
     });

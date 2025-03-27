@@ -1,23 +1,23 @@
 <script setup>
-import TaskCard from './TaskCard.vue';
+import TaskCard from "./TaskCard.vue";
 
 defineProps({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   tasks: {
     type: Array,
-    required: true
+    required: true,
   },
   status: {
     type: String,
-    required: true
+    required: true,
   },
   categoryId: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 </script>
 

@@ -6,7 +6,7 @@ import TaskColumn from "./TaskColumn.vue";
 const store = useTodoStore();
 
 const currentCategory = computed(() => {
-  return store.categories.find(c => c.id === store.activeCategoryId);
+  return store.categories.find((c) => c.id === store.activeCategoryId);
 });
 
 const columns = computed(() => {
@@ -16,17 +16,19 @@ const columns = computed(() => {
     {
       title: "Zu erledigen",
       status: "todo",
-      tasks: currentCategory.value.tasks.filter(t => t.status === "todo"),
+      tasks: currentCategory.value.tasks.filter((t) => t.status === "todo"),
     },
     {
       title: "In Bearbeitung",
       status: "in-progress",
-      tasks: currentCategory.value.tasks.filter(t => t.status === "in-progress"),
+      tasks: currentCategory.value.tasks.filter(
+        (t) => t.status === "in-progress"
+      ),
     },
     {
       title: "Erledigt",
       status: "done",
-      tasks: currentCategory.value.tasks.filter(t => t.status === "done"),
+      tasks: currentCategory.value.tasks.filter((t) => t.status === "done"),
     },
   ];
 });
